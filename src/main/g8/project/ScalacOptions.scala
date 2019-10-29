@@ -15,10 +15,12 @@ object ScalacOptions {
   )
 
   lazy val scalacOptions213 = scalacOptionsForAllVersions ++
+    // Seq("-Xlint:-unused,_") // suppress unused import warnings in 2.13.x
     Seq.empty
 
   lazy val scalacOptions212 = scalacOptionsForAllVersions ++
     Seq(
+      // "-Xlint",           // enable handy linter warnings
       "-Ypartial-unification", // (removed in scala 2.13) allow the compiler to unify type constructors of different arities
       "-language:higherKinds"  // (not required since scala 2.13.1) suppress warnings when using higher kinded types
     )

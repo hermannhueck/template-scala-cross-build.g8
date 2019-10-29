@@ -44,6 +44,8 @@ lazy val app = (project in file("app"))
     name := "app",
     description := "My gorgeous App",
     scalacOptions ++= scalacOptionsFor(scalaVersion.value),
+    // suppress unused import warnings in the scala repl
+    console / scalacOptions := scalacOptions.value :+ "-Xlint:-unused,_",
     libraryDependencies ++= Seq(
       shapeless,
       catsCore
@@ -53,7 +55,7 @@ lazy val app = (project in file("app"))
 lazy val compat213 = (project in file("compat213"))
   .settings(
     name := "compat213",
-    description := "compat library providing scala 2.13 extensions for scala 2.12",
+    description := "compat library providing features of Scala 2.13 backported to 2.12",
     scalacOptions ++= scalacOptionsFor(scalaVersion.value)
   )
 
