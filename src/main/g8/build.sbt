@@ -31,18 +31,18 @@ inThisBuild(
 )
 
 lazy val root = (project in file("."))
-  .aggregate(app)
+  .aggregate(core)
   .settings(
     name := projectName,
     description := projectDescription,
     crossScalaVersions := Seq.empty
   )
 
-lazy val app = (project in file("app"))
+lazy val core = (project in file("core"))
   .dependsOn(compat213, util)
   .settings(
-    name := "app",
-    description := "My gorgeous App",
+    name := "core",
+    description := "My gorgeous core App",
     scalacOptions ++= scalacOptionsFor(scalaVersion.value),
     // suppress unused import warnings in the scala repl
     console / scalacOptions := scalacOptions.value :+ "-Xlint:-unused,_",
