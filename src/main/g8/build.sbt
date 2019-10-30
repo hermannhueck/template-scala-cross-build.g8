@@ -43,13 +43,16 @@ lazy val core = (project in file("core"))
   .settings(
     name := "core",
     description := "My gorgeous core App",
-    scalacOptions ++= scalacOptionsFor(scalaVersion.value),
-    // suppress unused import warnings in the scala repl
-    console / scalacOptions := scalacOptions.value :+ "-Xlint:-unused,_",
     libraryDependencies ++= Seq(
       shapeless,
       catsCore
-    )
+    ),
+    scalacOptions ++= scalacOptionsFor(scalaVersion.value),
+    // suppress unused import warnings in the scala repl
+    console / scalacOptions := scalacOptions.value.map {
+      case "-Xlint" => "-Xlint:-unused,_"
+      case other    => other
+    }
   )
 
 lazy val compat213 = (project in file("compat213"))
