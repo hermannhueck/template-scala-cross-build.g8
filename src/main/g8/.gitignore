@@ -3,10 +3,10 @@ target/
 
 # hidden directories
 .idea/
+.vscode/
+.metals/
 .bloop/
 project/.bloop/
-.metals/
-.vscode/
 
 # files
 *.class
