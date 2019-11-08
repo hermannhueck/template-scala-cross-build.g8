@@ -49,10 +49,7 @@ lazy val core = (project in file("core"))
     ),
     scalacOptions ++= scalacOptionsFor(scalaVersion.value),
     // suppress unused import warnings in the scala repl
-    console / scalacOptions := scalacOptions.value.map {
-      case "-Xlint" => "-Xlint:-unused,_"
-      case other    => other
-    }
+    console / scalacOptions := removeScalacOptionXlintUnusedForConsoleFrom(scalacOptions.value)
   )
 
 lazy val compat213 = (project in file("compat213"))
