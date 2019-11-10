@@ -1,14 +1,10 @@
 package example
 
-import util.formatting._
+import scala.util.chaining._
 
-object Hello extends Greeting with App {
+object Hello extends Greeting with util.App {
 
-  prtTitleObjectName(this)
-
-  println(greeting)
-
-  prtLine()
+  greeting pipe println
 }
 
 trait Greeting {
