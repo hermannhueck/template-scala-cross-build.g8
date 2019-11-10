@@ -2,13 +2,9 @@ package example
 
 import util.formatting._
 
-object Hello extends Greeting with App {
-
-  prtTitleObjectName(this)
+object Hello extends Greeting with util.App {
 
   println(greeting)
-
-  prtLine()
 }
 
 trait Greeting {

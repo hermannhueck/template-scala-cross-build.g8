@@ -3,66 +3,85 @@ package util
 package object formatting {
 
   import build._
+  import Console._
 
-  val sbtVersion       = BuildInfo.sbtVersion
-  val scalaVersion     = BuildInfo.scalaVersion
-  val buildInfo        = s"BuildInfo: sbt.version = \$sbtVersion, scala.version = \$scalaVersion"
-  val buildInfoColored = s"\${Console.BLUE}\$buildInfo\${Console.RESET}"
-  val buildInfoLong    = BuildInfo.toString
+  val sbtVersion: String    = BuildInfo.sbtVersion
+  val scalaVersion: String  = BuildInfo.scalaVersion
+  val buildInfo             = s"BuildInfo: sbt.version = \$sbtVersion, scala.version = \$scalaVersion"
+  val buildInfoLong: String = BuildInfo.toString
 
-  def javaRuntimeInfo = {
+  def javaRuntimeInfo: String = {
     val javaVendor  = System.getProperty("java.vendor")
     val javaVersion = System.getProperty("java.version")
     s"Java Runtime: \$javaVendor, \$javaVersion"
   }
-  def javaRuntimeInfoColored = s"\${Console.BLUE}\$javaRuntimeInfo\${Console.RESET}"
 
-  def prtTitle(
+  def printHeader(
       text: String,
       width: Int = 80,
       leading: String = "",
       trailing: String = "",
       fill: String = "\u2500"
   ): Unit =
-    println(title(text, width, leading, trailing, fill))
+    println(header(text, width, leading, trailing, fill))
 
-  def title(
+  def header(
       text: String,
       width: Int = 80,
       leading: String = "",
       trailing: String = "",
       fill: String = "\u2500"
   ): String = {
-    val textColored = s"\${Console.BLUE}\$text\${Console.RESET}"
-    s"\${subTitle(textColored, width, "\n", s"", fill)}" +
-      s"\${subTitle(s"\$javaRuntimeInfoColored", width, "\n", s"\$trailing", fill)}" +
-      s"\${subTitle(s"\$buildInfoColored", width, "\n", s"\$trailing\n", fill)}"
+    s"""|\${textInLine(text, width, leading, trailing, fill, BLUE)}
+        |\${textInLine(s"\$javaRuntimeInfo", width, leading, trailing, fill, BLUE)}
+        |\${textInLine(s"\$buildInfo", width, leading, trailing, fill, BLUE)}""".stripMargin
   }
 
-  def prtSubTitle(
+  def printTextInLine(
       text: String,
       width: Int = 80,
       leading: String = "",
       trailing: String = "",
-      fill: String = "\u2500"
+      fill: String = "\u2500",
+      color: String = ""
   ): Unit =
-    println(subTitle(s"\${Console.BLUE}\$text\${Console.RESET}", width, leading, trailing, fill))
+    println(textInLine(text, width, leading, trailing, fill, color))
 
-  def subTitle(
+  def textInLine(
       text: String,
       width: Int = 80,
       leading: String = "",
       trailing: String = "",
-      fill: String = "\u2500"
+      fill: String = "\u2500",
+      color: String = ""
   ): String = {
+    val coloredText = if (color.isEmpty) text else s"\$color\$text\$RESET"
     val frontPad    = fill * 10
     val startLength = (10 + text.length() + 2)
     val endLength   = if (startLength > width) 0 else width - startLength
     val endPad      = fill * (endLength + 9) // add 9 to adjust color escape chars
-    s"\$leading\$frontPad \$text \$endPad\$trailing"
+    s"\$leading\$frontPad \$coloredText \$endPad\$trailing"
   }
 
-  def prtLine(
+  def printFooter(
+      text: String,
+      width: Int = 80,
+      leading: String = "",
+      trailing: String = "",
+      fill: String = "\u2500"
+  ): Unit =
+    println(footer(text, width, leading, trailing, fill))
+
+  def footer(
+      text: String,
+      width: Int = 80,
+      leading: String = "",
+      trailing: String = "",
+      fill: String = "\u2500"
+  ): String =
+    textInLine(text, width, leading, trailing, fill, BLUE)
+
+  def printLine(
       width: Int = 80,
       leading: String = "",
       trailing: String = "",
@@ -86,27 +105,27 @@ package object formatting {
   ): String =
     line(width, "", "", fill)
 
-  def objectNameSimple(scalaObject: java.lang.Object) = {
-    val cn = scalaObject.getClass().getSimpleName()
+  def objectNameSimple(scalaObject: java.lang.Object): String = {
+    val cn = scalaObject.getClass.getSimpleName
     cn.substring(0, cn.length() - 1)
   }
 
-  def objectName(scalaObject: java.lang.Object) = {
-    val cn = scalaObject.getClass().getName
+  def objectName(scalaObject: java.lang.Object): String = {
+    val cn = scalaObject.getClass.getName
     cn.substring(0, cn.length() - 1)
   }
 
-  def prtTitleObjectName(scalaObject: java.lang.Object) =
-    prtTitle(objectName(scalaObject))
+  def printHeaderWithProgramName(scalaObject: java.lang.Object): Unit =
+    printHeader(objectName(scalaObject))
 
-  def prtSubTitleObjectName(scalaObject: java.lang.Object) =
-    prtSubTitle(objectName(scalaObject))
+  def printProgramNameInLine(scalaObject: java.lang.Object): Unit =
+    printTextInLine(objectName(scalaObject))
 
-  def green(): Unit   = print(Console.GREEN)
-  def red(): Unit     = print(Console.RED)
-  def blue(): Unit    = print(Console.BLUE)
-  def yellow(): Unit  = print(Console.YELLOW)
-  def cyan(): Unit    = print(Console.CYAN)
-  def magenta(): Unit = print(Console.MAGENTA)
-  def reset(): Unit   = print(Console.RESET)
+  def printGreen(): Unit   = print(GREEN)
+  def printRed(): Unit     = print(RED)
+  def printBlue(): Unit    = print(BLUE)
+  def printYellow(): Unit  = print(YELLOW)
+  def printCyan(): Unit    = print(CYAN)
+  def printMagenta(): Unit = print(MAGENTA)
+  def printReset(): Unit   = print(RESET)
 }
