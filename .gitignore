@@ -7,5 +7,6 @@ project/plugins/project/
 .idea/
 .bloop/
 project/.bloop/
+project/metals.sbt
 .metals/
 .vscode/
