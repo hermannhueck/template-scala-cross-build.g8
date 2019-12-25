@@ -2,12 +2,12 @@ import sbt._
 
 object Dependencies {
 
-  val collectionCompatVersion = "2.1.2"
+  val collectionCompatVersion = "2.1.3"
   val shapelessVersion        = "2.3.3"
   val catsVersion             = "2.0.0"
-  val zioVersion              = "1.0.0-RC15"
-  val scalaTestVersion        = "3.0.8"
-  val scalaCheckVersion       = "1.14.2"
+  val zioVersion              = "1.0.0-RC17"
+  val scalaTestVersion        = "3.1.0"
+  val scalaCheckVersion       = "1.14.3"
 
   val collectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % collectionCompatVersion
   val shapeless        = "com.chuusai"            %% "shapeless"               % shapelessVersion
