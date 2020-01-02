@@ -31,3 +31,5 @@ test
 clean
 sh ls target
 test
+t
+test

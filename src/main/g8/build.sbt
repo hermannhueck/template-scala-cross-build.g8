@@ -1,9 +1,9 @@
 import Dependencies._
 import ScalacOptions._
 
-val projectName        = "$name$"
-val projectDescription = "Project Description (CHANGE IT!!!)"
-val projectVersion     = "$version$"
+val projectName        = "$project_name$"
+val projectDescription = "$project_description$"
+val projectVersion     = "$project_version$"
 
 val scala212               = "$scala212_latest_version$"
 val scala213               = "$scala_latest_version$"
@@ -17,10 +17,13 @@ inThisBuild(
     publish / skip := true,
     libraryDependencies ++= Seq(
       collectionCompat,
-      shapeless,
-      scalaTest  % Test,
-      scalaCheck % Test
-    ),
+      shapeless
+    ) ++ Seq(
+      scalaTest,
+      scalaTestPlus,
+      scalaCheck,
+      scalaCheckShapeless
+    ).map(_ % Test),
     initialCommands :=
       s"""|
           |import scala.util.chaining._
@@ -45,7 +48,8 @@ lazy val core = (project in file("core"))
     description := "My gorgeous core App",
     libraryDependencies ++= Seq(
       shapeless,
-      catsCore
+      fs2Core,
+      fs2Io
     ) ++ {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, minor)) if minor >= 13 => Seq.empty
