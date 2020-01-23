@@ -17,17 +17,22 @@ inThisBuild(
     publish / skip := true,
     libraryDependencies ++= Seq(
       collectionCompat,
-      shapeless
-    ) ++ Seq(
+      scalactic,
       scalaTest,
-      scalaTestPlus,
+      scalaMock,
+      shapeless,
+      catsEffect
+    ) ++ Seq(
       scalaCheck,
+      scalaTestPlusCheck,
       scalaCheckShapeless
     ).map(_ % Test),
+    Test / parallelExecution := false,
+    // S = Small Stack Traces, D = print Duration
+    Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oSD"),
     initialCommands :=
       s"""|
           |import scala.util.chaining._
-          |import util.syntax.pipe._
           |println
           |""".stripMargin // initialize REPL
   )
