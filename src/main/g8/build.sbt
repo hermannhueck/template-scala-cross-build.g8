@@ -17,19 +17,23 @@ inThisBuild(
     publish / skip := true,
     libraryDependencies ++= Seq(
       collectionCompat,
-      scalactic,
-      scalaTest,
-      scalaMock,
-      shapeless,
-      catsEffect
+      silencerLib,
+      silencerPlugin,
+      kindProjectorPlugin,
+      betterMonadicForPlugin
     ) ++ Seq(
+      scalaTest,
       scalaCheck,
       scalaTestPlusCheck,
-      scalaCheckShapeless
+      scalaCheckShapeless,
+      munit
     ).map(_ % Test),
     Test / parallelExecution := false,
     // S = Small Stack Traces, D = print Duration
     Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oSD"),
+    // run 100 tests for each property // -s = -minSuccessfulTests
+    Test / testOptions += Tests.Argument(TestFrameworks.ScalaCheck, "-s", "100"),
+    testFrameworks += new TestFramework("munit.Framework"),
     initialCommands :=
       s"""|
           |import scala.util.chaining._
@@ -51,21 +55,13 @@ lazy val core = (project in file("core"))
   .settings(
     name := "core",
     description := "My gorgeous core App",
+    scalacOptions ++= scalacOptionsFor(scalaVersion.value),
+    console / scalacOptions := removeScalacOptionXlintUnusedForConsoleFrom(scalacOptions.value),
     libraryDependencies ++= Seq(
       shapeless,
       fs2Core,
       fs2Io
-    ) ++ {
-      CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, minor)) if minor >= 13 => Seq.empty
-        // Macro paradise not needed in 2.13. Just use scalacOption -Ymacro-annotations. See project/ScalacOptions.scala
-        case _ =>
-          Seq(compilerPlugin("org.scalamacros" %% "paradise" % "2.1.1" cross CrossVersion.full))
-      }
-    },
-    scalacOptions ++= scalacOptionsFor(scalaVersion.value),
-    // suppress unused import warnings in the scala repl
-    console / scalacOptions := removeScalacOptionXlintUnusedForConsoleFrom(scalacOptions.value)
+    )
   )
 
 lazy val compat213 = (project in file("compat213"))
@@ -84,8 +80,3 @@ lazy val util = (project in file("util"))
     buildInfoPackage := "build",
     scalacOptions ++= scalacOptionsFor(scalaVersion.value)
   )
-
-// https://github.com/typelevel/kind-projector
-addCompilerPlugin("org.typelevel" % "kind-projector" % "0.11.0" cross CrossVersion.full)
-// https://github.com/oleg-py/better-monadic-for
-addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
