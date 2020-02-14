@@ -4,7 +4,7 @@ import org.scalatest._
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.scalatest.prop.TableDrivenPropertyChecks
 
-class PropertyBasedSpec
+class FractionSpec
     extends flatspec.AnyFlatSpec
     with matchers.should.Matchers
     with ScalaCheckPropertyChecks
