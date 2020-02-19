@@ -1,4 +1,4 @@
-# PROJECT TITLE
+# $project_name$
   
-PROJECT DESCRIPTION
+$project_description$
 
