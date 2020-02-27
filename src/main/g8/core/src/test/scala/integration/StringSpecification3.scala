@@ -22,7 +22,7 @@ class StringSpecification3 extends AnyPropSpec with ScalaCheckPropertyChecks {
 
   property("concatenate") {
     forAll { (a: String, b: String) =>
-      assert((a + b).length > a.length && (a + b).length > b.length) // failing test
+      assert((a + b).length >= a.length && (a + b).length >= b.length) // failing test
     }
   }
 

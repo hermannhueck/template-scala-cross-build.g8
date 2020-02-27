@@ -25,7 +25,7 @@ class StringSpecification2 extends AnyPropSpec with Checkers {
   property("concatenate") {
     check {
       forAll { (a: String, b: String) =>
-        (a + b).length > a.length && (a + b).length > b.length // failing test
+        (a + b).length >= a.length && (a + b).length >= b.length // failing test
       }
     }
   }

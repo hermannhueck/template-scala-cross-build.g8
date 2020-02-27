@@ -19,8 +19,8 @@ class StringSpecification5 extends AnyFlatSpec with ScalaCheckPropertyChecks wit
 
   "Two concatenated strings" should "have a length >= the length of the first or second string" in {
     forAll { (a: String, b: String) => // failing test
-      (a + b).length should be > a.length
-      (a + b).length should be > b.length
+      (a + b).length should be >= a.length
+      (a + b).length should be >= b.length
     }
   }
 

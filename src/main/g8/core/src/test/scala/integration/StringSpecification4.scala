@@ -20,8 +20,8 @@ class StringSpecification4 extends AnyPropSpec with ScalaCheckPropertyChecks wit
 
   property("concatenate") {
     forAll { (a: String, b: String) => // failing test
-      (a + b).length should be > a.length
-      (a + b).length should be > b.length
+      (a + b).length should be >= a.length
+      (a + b).length should be >= b.length
     }
   }
 
