@@ -2,7 +2,6 @@ package example
 
 import org.scalacheck._
 import org.scalatest._
-import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck._
