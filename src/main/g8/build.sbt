@@ -16,6 +16,7 @@ inThisBuild(
     crossScalaVersions := supportedScalaVersions,
     publish / skip := true,
     libraryDependencies ++= Seq(
+      munit,
       collectionCompat,
       silencerLib,
       silencerPlugin,
@@ -25,8 +26,7 @@ inThisBuild(
       scalaTest,
       scalaCheck,
       scalaTestPlusCheck,
-      scalaCheckShapeless,
-      munit
+      scalaCheckShapeless
     ).map(_ % Test),
     Test / parallelExecution := false,
     // S = Small Stack Traces, D = print Duration
@@ -59,8 +59,11 @@ lazy val core = (project in file("core"))
     console / scalacOptions := removeScalacOptionXlintUnusedForConsoleFrom(scalacOptions.value),
     libraryDependencies ++= Seq(
       shapeless,
-      fs2Core,
       fs2Io
+    ),
+    libraryDependencies ++= Seq(
+      "org.scala-lang" % "scala-compiler" % scalaVersion.value,
+      "org.scala-lang" % "scala-reflect"  % scalaVersion.value
     )
   )
 
