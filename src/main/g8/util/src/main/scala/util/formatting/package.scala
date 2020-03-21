@@ -146,6 +146,15 @@ package object formatting {
     def blue: String =
       what.colored(Console.BLUE)
 
+    def yellow: String =
+      what.colored(Console.YELLOW)
+
+    def cyan: String =
+      what.colored(Console.CYAN)
+
+    def magenta: String =
+      what.colored(Console.MAGENTA)
+
     def reset: String =
       what.colored(Console.RESET)
   }
