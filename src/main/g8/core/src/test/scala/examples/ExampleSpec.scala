@@ -1,4 +1,4 @@
-package example
+package examples
 
 class ExampleSpec extends TestSpec {
   "42" should "=== 42" in {

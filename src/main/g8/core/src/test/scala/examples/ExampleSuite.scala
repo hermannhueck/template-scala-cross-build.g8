@@ -1,4 +1,4 @@
-package example
+package examples
 
 class ExampleSuite extends TestSuite {
   test("hello world") {

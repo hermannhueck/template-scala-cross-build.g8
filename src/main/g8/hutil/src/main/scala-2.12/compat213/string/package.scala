@@ -2,7 +2,7 @@ package compat213
 
 package object string {
 
-  implicit class StringOps(private val s: String) extends AnyVal {
+  implicit final class StringOpsToXXXOption(private val s: String) extends AnyVal {
 
     import scala.util.Try
 

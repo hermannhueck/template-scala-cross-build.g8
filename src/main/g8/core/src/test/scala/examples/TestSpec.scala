@@ -1,4 +1,4 @@
-package example
+package examples
 
 import org.scalacheck._
 import org.scalatest._

@@ -1,8 +1,8 @@
-package example
+package examples
 
 import scala.util.chaining._
 
-object Hello extends Greeting with hutil.App {
+object HelloApp extends Greeting with hutil.App {
 
   greeting pipe println
 }
