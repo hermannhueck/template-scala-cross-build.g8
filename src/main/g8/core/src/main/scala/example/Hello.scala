@@ -2,7 +2,7 @@ package example
 
 import scala.util.chaining._
 
-object Hello extends Greeting with util.App {
+object Hello extends Greeting with hutil.App {
 
   greeting pipe println
 }

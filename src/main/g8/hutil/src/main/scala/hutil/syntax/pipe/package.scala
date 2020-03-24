@@ -1,4 +1,5 @@
-package util.syntax
+package hutil
+package syntax
 
 package object pipe {
 

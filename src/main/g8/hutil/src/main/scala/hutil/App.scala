@@ -1,16 +1,16 @@
-package util
+package hutil
 
 import java.lang.System.{currentTimeMillis => currentTime}
 import scala.collection.mutable.ListBuffer
 // import scala.util.Using
-import util.formatting._
+import hutil.formatting._
 
 @com.github.ghik.silencer.silent("deprecated")
 trait App extends DelayedInit {
 
   final val executionStart: Long = currentTime
 
-  protected final def args: Array[String] = _args
+  final protected def args: Array[String] = _args
 
   private[this] var _args: Array[String] = _
 

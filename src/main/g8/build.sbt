@@ -51,7 +51,7 @@ lazy val root = (project in file("."))
   )
 
 lazy val core = (project in file("core"))
-  .dependsOn(compat213, util)
+  .dependsOn(compat213, hutil)
   .settings(
     name := "core",
     description := "My gorgeous core App",
@@ -74,11 +74,11 @@ lazy val compat213 = (project in file("compat213"))
     scalacOptions ++= scalacOptionsFor(scalaVersion.value)
   )
 
-lazy val util = (project in file("util"))
+lazy val hutil = (project in file("hutil"))
   .enablePlugins(BuildInfoPlugin)
   .settings(
-    name := "util",
-    description := "Utilities",
+    name := "hutil",
+    description := "Hermann's Utilities",
     buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
     buildInfoPackage := "build",
     scalacOptions ++= scalacOptionsFor(scalaVersion.value)
