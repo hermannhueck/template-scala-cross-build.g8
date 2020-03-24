@@ -1,6 +1,6 @@
 package hutil
 
-package object formatting {
+package object stringformat {
 
   import build._
   import Console._

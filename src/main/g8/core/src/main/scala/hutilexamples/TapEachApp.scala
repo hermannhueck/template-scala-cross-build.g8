@@ -1,7 +1,7 @@
 package hutilexamples
 
 import scala.util.chaining._
-import hutil.formatting._
+import hutil.stringformat._
 import hutil.syntax.pipe._
 import compat213.collections.tapeach._
 

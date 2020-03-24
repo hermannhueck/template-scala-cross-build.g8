@@ -3,7 +3,7 @@ package hutil
 import java.lang.System.{currentTimeMillis => currentTime}
 import scala.collection.mutable.ListBuffer
 // import scala.util.Using
-import hutil.formatting._
+import hutil.stringformat._
 
 @com.github.ghik.silencer.silent("deprecated")
 trait App extends DelayedInit {
