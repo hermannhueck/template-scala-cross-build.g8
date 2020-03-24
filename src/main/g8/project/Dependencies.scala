@@ -6,7 +6,7 @@ object Dependencies {
   lazy val shapelessVersion           = "2.3.3"
   lazy val catsVersion                = "2.1.1"
   lazy val catsEffectVersion          = "2.1.1"
-  lazy val fs2Version                 = "2.2.2"
+  lazy val fs2Version                 = "2.3.0"
   lazy val monixVersion               = "3.1.0"
   lazy val zioVersion                 = "1.0.0-RC17"
   lazy val scalaTestVersion           = "3.1.1"
