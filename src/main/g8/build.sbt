@@ -51,7 +51,7 @@ lazy val root = (project in file("."))
   )
 
 lazy val core = (project in file("core"))
-  .dependsOn(compat213, hutil)
+  .dependsOn(hutil)
   .settings(
     name := "core",
     description := "My gorgeous core App",
@@ -65,13 +65,6 @@ lazy val core = (project in file("core"))
       "org.scala-lang" % "scala-compiler" % scalaVersion.value,
       "org.scala-lang" % "scala-reflect"  % scalaVersion.value
     )
-  )
-
-lazy val compat213 = (project in file("compat213"))
-  .settings(
-    name := "compat213",
-    description := "compat library providing features of Scala 2.13 backported to 2.12",
-    scalacOptions ++= scalacOptionsFor(scalaVersion.value)
   )
 
 lazy val hutil = (project in file("hutil"))
