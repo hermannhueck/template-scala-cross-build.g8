@@ -1,161 +1,92 @@
 package hutil
 
-package object stringformat {
+package object stringformat { self =>
 
-  import build._
-  import Console._
+  val javaVendor           = scala.util.Properties.javaVendor
+  val javaVersion          = scala.util.Properties.javaVersion
+  val scalaVersion: String = scala.util.Properties.versionNumberString
 
-  val sbtVersion: String    = BuildInfo.sbtVersion
-  val scalaVersion: String  = BuildInfo.scalaVersion
-  val buildInfo             = s"BuildInfo: sbt.version = \$sbtVersion, scala.version = \$scalaVersion"
-  val buildInfoLong: String = BuildInfo.toString
+  val runtimeInfo: String =
+    s"JDK: \$javaVendor \$javaVersion,   scala.version: \$scalaVersion"
 
-  def javaRuntimeInfo: String = {
-    val javaVendor  = System.getProperty("java.vendor")
-    val javaVersion = System.getProperty("java.version")
-    s"Java Runtime: \$javaVendor, \$javaVersion"
-  }
-
-  def printHeader(
+  def textBoxed(
       text: String,
-      width: Int = 80,
-      leading: String = "",
-      trailing: String = "",
-      fill: String = "\u2500"
-  ): Unit =
-    println(header(text, width, leading, trailing, fill))
-
-  def header(
-      text: String,
-      width: Int = 80,
+      width: Int = 100,
       leading: String = "",
       trailing: String = "",
       fill: String = "\u2500"
   ): String = {
-    s"""|\${textInLine(text, width, leading, trailing, fill, BLUE)}
-        |\${textInLine(s"\$javaRuntimeInfo", width, leading, trailing, fill, BLUE)}
-        |\${textInLine(s"\$buildInfo", width, leading, trailing, fill, BLUE)}""".stripMargin
-  }
-
-  def printTextInLine(
-      text: String,
-      width: Int = 80,
-      leading: String = "",
-      trailing: String = "",
-      fill: String = "\u2500",
-      color: String = ""
-  ): Unit =
-    println(textInLine(text, width, leading, trailing, fill, color))
-
-  def textInLine(
-      text: String,
-      width: Int = 80,
-      leading: String = "",
-      trailing: String = "",
-      fill: String = "\u2500",
-      color: String = ""
-  ): String = {
-    val coloredText = if (color.isEmpty) text else s"\$color\$text\$RESET"
     val frontPad    = fill * 10
     val startLength = (10 + text.length() + 2)
     val endLength   = if (startLength > width) 0 else width - startLength
-    val endPad      = fill * (endLength + 9) // add 9 to adjust color escape chars
-    s"\$leading\$frontPad \$coloredText \$endPad\$trailing"
-  }
-
-  def printFooter(
-      text: String,
-      width: Int = 80,
-      leading: String = "",
-      trailing: String = "",
-      fill: String = "\u2500"
-  ): Unit =
-    println(footer(text, width, leading, trailing, fill))
-
-  def footer(
-      text: String,
-      width: Int = 80,
-      leading: String = "",
-      trailing: String = "",
-      fill: String = "\u2500"
-  ): String =
-    textInLine(text, width, leading, trailing, fill, BLUE)
-
-  def printLine(
-      width: Int = 80,
-      leading: String = "",
-      trailing: String = "",
-      fill: String = "\u2500"
-  ): Unit =
-    println(line(width, leading, trailing, fill))
-
-  def line(
-      width: Int = 80,
-      leading: String = "",
-      trailing: String = "",
-      fill: String = "\u2500"
-  ): String = {
-    val line = fill * width
-    s"\$leading\$line\$trailing"
+    val endPad      = fill * endLength
+    s"\$leading\$frontPad \$text \$endPad\$trailing" // tap (s => println(s.length()))
   }
 
   def dash(
-      width: Int,
+      width: Int = 100,
+      leading: String = "",
+      trailing: String = "",
       fill: String = "\u2500"
   ): String =
-    line(width, "", "", fill)
+    s"\$leading\${fill * width}\$trailing"
 
-  def objectNameSimple(scalaObject: java.lang.Object): String = {
-    val cn = scalaObject.getClass.getSimpleName
-    cn.substring(0, cn.length() - 1)
-  }
+  @inline def dash10: String  = dash(10)
+  @inline def dash50: String  = dash(50)
+  @inline def dash80: String  = dash(80)
+  @inline def dash100: String = dash(100)
 
-  def objectName(scalaObject: java.lang.Object): String = {
-    val cn = scalaObject.getClass.getName
-    cn.substring(0, cn.length() - 1)
-  }
+  implicit final class StringSyntax(private val what: String) extends AnyVal {
 
-  def printHeaderWithProgramName(scalaObject: java.lang.Object): Unit =
-    printHeader(objectName(scalaObject))
+    @inline def boxed: String =
+      what.textBoxed()
 
-  def printProgramNameInLine(scalaObject: java.lang.Object): Unit =
-    printTextInLine(objectName(scalaObject))
+    @inline def textBoxed(width: Int = 100): String =
+      self.textBoxed(what, width)
 
-  def printGreen(): Unit   = print(GREEN)
-  def printRed(): Unit     = print(RED)
-  def printBlue(): Unit    = print(BLUE)
-  def printYellow(): Unit  = print(YELLOW)
-  def printCyan(): Unit    = print(CYAN)
-  def printMagenta(): Unit = print(MAGENTA)
-  def printReset(): Unit   = print(RESET)
-
-  implicit class StringSyntax(private val what: String) extends AnyVal {
-
-    def boxed(width: Int = 80): String =
-      s"\${line(width)}\n\$what\n\${line(width)}"
-
-    def colored(escape: String): String =
+    @inline def colored(escape: String): String =
       s"\$escape\$what\${Console.RESET}"
 
-    def red: String =
+    @inline def red: String =
       what.colored(Console.RED)
 
-    def green: String =
+    @inline def green: String =
       what.colored(Console.GREEN)
 
-    def blue: String =
+    @inline def blue: String =
       what.colored(Console.BLUE)
 
-    def yellow: String =
+    @inline def yellow: String =
       what.colored(Console.YELLOW)
 
-    def cyan: String =
+    @inline def cyan: String =
       what.colored(Console.CYAN)
 
-    def magenta: String =
+    @inline def magenta: String =
       what.colored(Console.MAGENTA)
 
-    def reset: String =
+    @inline def black: String =
+      what.colored(Console.BLACK)
+
+    @inline def white: String =
+      what.colored(Console.WHITE)
+
+    @inline def underlined: String =
+      what.colored(Console.UNDERLINED)
+
+    @inline def bold: String =
+      what.colored(Console.BOLD)
+
+    @inline def reversed: String =
+      what.colored(Console.REVERSED)
+
+    @inline def reset: String =
       what.colored(Console.RESET)
+
+    @inline def print(): Unit =
+      Console.print(what)
+
+    @inline def println(): Unit =
+      Console.println(what)
   }
 }

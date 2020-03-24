@@ -2,7 +2,6 @@ package hutilexamples
 
 import java.io.{BufferedReader, FileReader}
 
-import scala.util.chaining._
 import scala.util.Using
 import hutil.stringformat._
 import hutil.syntax.pipe._
@@ -15,11 +14,11 @@ object UnfoldUsingApp extends hutil.App {
     case s => Some(((s * s), (s - 1)))
   }
 
-  textInLine("List.unfold") | println
+  "List.unfold".magenta.println
 
-  List.unfold(10)(unfoldFunction) pipe println
+  List.unfold(10)(unfoldFunction) | println
 
-  textInLine("Iterator.unfold + Using") | println
+  "Iterator.unfold + Using".magenta.println
 
   def bufferedReader(fileName: String): BufferedReader =
     new BufferedReader(new FileReader(fileName))

@@ -2,7 +2,8 @@ package hutil
 
 import java.lang.System.{currentTimeMillis => currentTime}
 import scala.collection.mutable.ListBuffer
-// import scala.util.Using
+
+import hutil.classname._
 import hutil.stringformat._
 
 @com.github.ghik.silencer.silent("deprecated")
@@ -18,12 +19,12 @@ trait App extends DelayedInit {
 
   def execBody(body: => Unit): Unit =
     try {
-      // printHeaderWithProgramName(this)
-      printHeaderWithProgramName(this)
+      runtimeInfo.blue.boxed.println
+      objectName(this).blue.boxed.println
       body
     } finally {
       val total = currentTime - executionStart
-      printFooter(s"[total: \$total ms]")
+      s"[total: \$total ms]".blue.boxed.println
     }
 
   override def delayedInit(body: => Unit): Unit = {
