@@ -2,20 +2,20 @@ import sbt._
 
 object Dependencies {
 
-  lazy val collectionCompatVersion    = "2.1.4"
+  lazy val collectionCompatVersion    = "2.1.6"
   lazy val shapelessVersion           = "2.3.3"
   lazy val catsVersion                = "2.1.1"
-  lazy val catsEffectVersion          = "2.1.1"
+  lazy val catsEffectVersion          = "2.1.3"
   lazy val fs2Version                 = "2.3.0"
-  lazy val monixVersion               = "3.1.0"
-  lazy val zioVersion                 = "1.0.0-RC17"
-  lazy val scalaTestVersion           = "3.1.1"
+  lazy val monixVersion               = "3.2.1"
+  lazy val zioVersion                 = "1.0.0-RC18-2"
+  lazy val scalaTestVersion           = "3.1.2"
   lazy val scalaMockVersion           = "4.4.0"
   lazy val scalaCheckVersion          = "1.14.3"
   lazy val scalaCheckShapelessVersion = "1.2.5"
   lazy val scalaCheckDatetimeVersion  = "0.3.2"
   lazy val seleniumVersion            = "3.141.59"
-  lazy val munitVersion               = "0.7.1"
+  lazy val munitVersion               = "0.7.6"
   lazy val minitestVersion            = "2.7.0"
   lazy val utestVersion               = "0.7.4"
   lazy val fansiVersion               = "0.2.9"
@@ -23,10 +23,12 @@ object Dependencies {
 
   lazy val collectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % collectionCompatVersion
   lazy val shapeless        = "com.chuusai"            %% "shapeless"               % shapelessVersion
+  lazy val catsCore         = "org.typelevel"          %% "cats-core"               % catsVersion
   lazy val catsEffect       = "org.typelevel"          %% "cats-effect"             % catsEffectVersion
   lazy val fs2Core          = "co.fs2"                 %% "fs2-core"                % fs2Version
   lazy val fs2Io            = "co.fs2"                 %% "fs2-io"                  % fs2Version
   lazy val monixExecution   = "io.monix"               %% "monix-execution"         % monixVersion
+  lazy val monixEval        = "io.monix"               %% "monix-eval"              % monixVersion
   lazy val zio              = "dev.zio"                %% "zio"                     % zioVersion
   lazy val zioStreams       = "dev.zio"                %% "zio-streams"             % zioVersion
   lazy val zioTest          = "dev.zio"                %% "zio-test"                % zioVersion
@@ -35,24 +37,25 @@ object Dependencies {
   lazy val scalaTest        = "org.scalatest"          %% "scalatest"               % scalaTestVersion
   lazy val scalaTestApp     = "org.scalatest"          %% "scalatest-app"           % scalaTestVersion
   // lazy val scalaTestPlusCheck  = "org.scalatestplus"          %% "scalatestplus-scalacheck"    % "3.1.0.0-RC2"
-  lazy val scalaTestPlusCheck  = "org.scalatestplus"          %% "scalacheck-1-14"             % "3.1.1.1"
-  lazy val scalaMock           = "org.scalamock"              %% "scalamock"                   % scalaMockVersion
-  lazy val scalaCheck          = "org.scalacheck"             %% "scalacheck"                  % scalaCheckVersion
-  lazy val scalaCheckShapeless = "com.github.alexarchambault" %% "scalacheck-shapeless_1.14"   % scalaCheckShapelessVersion
-  lazy val scalaCheckDatetime  = "com.47deg"                  %% "scalacheck-toolbox-datetime" % scalaCheckDatetimeVersion
-  lazy val seleniumJava        = "org.seleniumhq.selenium"    % "selenium-java"                % seleniumVersion
-  lazy val seleniumHtmlunit    = "org.seleniumhq.selenium"    % "selenium-htmlunit-driver"     % seleniumVersion
-  lazy val seleniumFirefox     = "org.seleniumhq.selenium"    % "selenium-firefox-driver"      % seleniumVersion
-  lazy val seleniumChrome      = "org.seleniumhq.selenium"    % "selenium-chrome-driver"       % seleniumVersion
-  lazy val munit               = "org.scalameta"              %% "munit"                       % munitVersion
-  lazy val minitest            = "io.monix"                   %% "minitest"                    % minitestVersion
-  lazy val minitestLaws        = "io.monix"                   %% "minitest-laws"               % minitestVersion
-  lazy val utest               = "com.lihaoyi"                %% "utest"                       % utestVersion
-  lazy val fansi               = "com.lihaoyi"                %% "fansi"                       % fansiVersion
-  lazy val pprint              = "com.lihaoyi"                %% "pprint"                      % pprintVersion
+  lazy val scalaTestPlusCheck = "org.scalatestplus" %% "scalacheck-1-14" % "3.1.1.1"
+  lazy val scalaMock          = "org.scalamock"     %% "scalamock"       % scalaMockVersion
+  lazy val scalaCheck         = "org.scalacheck"    %% "scalacheck"      % scalaCheckVersion
+  lazy val scalaCheckShapeless =
+    "com.github.alexarchambault" %% "scalacheck-shapeless_1.14" % scalaCheckShapelessVersion
+  lazy val scalaCheckDatetime = "com.47deg"               %% "scalacheck-toolbox-datetime" % scalaCheckDatetimeVersion
+  lazy val seleniumJava       = "org.seleniumhq.selenium" % "selenium-java"                % seleniumVersion
+  lazy val seleniumHtmlunit   = "org.seleniumhq.selenium" % "selenium-htmlunit-driver"     % seleniumVersion
+  lazy val seleniumFirefox    = "org.seleniumhq.selenium" % "selenium-firefox-driver"      % seleniumVersion
+  lazy val seleniumChrome     = "org.seleniumhq.selenium" % "selenium-chrome-driver"       % seleniumVersion
+  lazy val munit              = "org.scalameta"           %% "munit"                       % munitVersion
+  lazy val minitest           = "io.monix"                %% "minitest"                    % minitestVersion
+  lazy val minitestLaws       = "io.monix"                %% "minitest-laws"               % minitestVersion
+  lazy val utest              = "com.lihaoyi"             %% "utest"                       % utestVersion
+  lazy val fansi              = "com.lihaoyi"             %% "fansi"                       % fansiVersion
+  lazy val pprint             = "com.lihaoyi"             %% "pprint"                      % pprintVersion
 
   // compilerPlugins
-  lazy val silencerVersion         = "1.6.0"
+  lazy val silencerVersion         = "1.7.0"
   lazy val kindProjectorVersion    = "0.11.0"
   lazy val betterMonadicForVersion = "0.3.1"
   lazy val macroParadiseVersion    = "2.1.1"
