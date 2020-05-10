@@ -59,7 +59,11 @@ lazy val core = (project in file("core"))
     console / scalacOptions := removeScalacOptionXlintUnusedForConsoleFrom(scalacOptions.value),
     libraryDependencies ++= Seq(
       shapeless,
-      fs2Io
+      catsCore,
+      catsEffect,
+      fs2Io,
+      monixEval,
+      zio
     ),
     libraryDependencies ++= Seq(
       "org.scala-lang" % "scala-compiler" % scalaVersion.value,
@@ -68,11 +72,8 @@ lazy val core = (project in file("core"))
   )
 
 lazy val hutil = (project in file("hutil"))
-  .enablePlugins(BuildInfoPlugin)
   .settings(
     name := "hutil",
     description := "Hermann's Utilities",
-    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
-    buildInfoPackage := "build",
     scalacOptions ++= scalacOptionsFor(scalaVersion.value)
   )
